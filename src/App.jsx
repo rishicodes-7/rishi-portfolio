@@ -234,12 +234,10 @@ function About() {
         transform: inView ? "translateY(0)" : "translateY(40px)",
         transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
       }}>
-        {/* Left: avatar placeholder */}
+        {/* Left: profile photo */}
         <div style={{ position: "relative" }}>
           <div style={{
             width: "100%", paddingBottom: "100%",
-            background: "linear-gradient(135deg, #1a1a1a, #0d0d0d)",
-            border: "1px solid rgba(147,51,234,0.2)",
             borderRadius: "4px", position: "relative", overflow: "hidden",
           }}>
             {/* Corner accents */}
@@ -249,17 +247,26 @@ function About() {
               { bottom: -1, left: -1, borderBottom: "2px solid #9333ea", borderLeft: "2px solid #9333ea" },
               { bottom: -1, right: -1, borderBottom: "2px solid #9333ea", borderRight: "2px solid #9333ea" },
             ].map((s, i) => (
-              <div key={i} style={{ position: "absolute", width: "20px", height: "20px", ...s }} />
+              <div key={i} style={{ position: "absolute", width: "20px", height: "20px", zIndex: 2, ...s }} />
             ))}
-            {/* Initials */}
+            {/* Profile Photo */}
+            <img
+              src="/profile.png"
+              alt="Rishi Codes"
+              style={{
+                position: "absolute", inset: 0,
+                width: "100%", height: "100%",
+                objectFit: "cover", objectPosition: "center top",
+                display: "block",
+              }}
+            />
+            {/* Purple overlay glow at bottom */}
             <div style={{
-              position: "absolute", inset: 0, display: "flex",
-              alignItems: "center", justifyContent: "center",
-              fontFamily: "'Space Mono', monospace",
-              fontSize: "5rem", fontWeight: 700,
-              color: "rgba(147,51,234,0.2)",
-              letterSpacing: "0.05em",
-            }}>RC</div>
+              position: "absolute", bottom: 0, left: 0, right: 0,
+              height: "40%",
+              background: "linear-gradient(to top, rgba(147,51,234,0.25), transparent)",
+              zIndex: 1,
+            }} />
           </div>
           {/* Floating badge */}
           <div style={{
