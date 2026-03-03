@@ -43,7 +43,7 @@ const SKILLS = [
   { name: "PostgreSQL", level: 78 },
 ];
 
-const NAV_LINKS = ["about", "skills", "projects", "contact"];
+const NAV_LINKS = ["about", "skills", "contact"];
 
 const PROJECTS = [
   {
@@ -712,7 +712,6 @@ export default function App() {
       <Hero />
       <About />
       <Skills />
-      <Projects />
       <Contact />
       <Footer />
     </ThemeProvider>
