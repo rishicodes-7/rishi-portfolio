@@ -353,13 +353,7 @@ function Hero() {
             boxShadow: "0 0 30px rgba(147,51,234,0.4)", transition: "all 0.3s ease",
           }}>Get in Touch</button>
 
-          <button onClick={() => scrollTo("projects")} style={{
-            padding: "13px 28px", background: "transparent",
-            border: "1px solid rgba(147,51,234,0.4)", color: "var(--text-secondary)",
-            fontFamily: "'Space Mono', monospace", fontSize: "0.75rem",
-            letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer",
-            borderRadius: "2px", width: isMobile ? "100%" : "auto", transition: "all 0.3s ease",
-          }}>View Projects</button>
+          
         </div>
       </div>
     </section>
