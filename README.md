@@ -42,7 +42,7 @@ A fast, responsive developer portfolio built with React. Features smooth animati
 ### AI Resume Analyzer
 Full stack AI SaaS app that analyzes your resume against a job description and returns a match score, skill gaps, keyword analysis, and an AI-rewritten summary.
 
-- **Live:** [my-resume-ai-rishicodes-7s-projects.vercel.app](https://my-resume-ai-rishicodes-7s-projects.vercel.app)
+- **Live:** [my-resume-ai-rishicodes-7s-projects.vercel.app](https://my-resume-ai-omega.vercel.app/)
 - **Repo:** [github.com/rishicodes-7/my-resume-ai](https://github.com/rishicodes-7/my-resume-ai)
 - **Stack:** Next.js, Groq API, LLaMA 3.3, Tailwind CSS, Vercel
 
