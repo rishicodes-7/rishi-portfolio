@@ -43,28 +43,42 @@ const SKILLS = [
   { name: "PostgreSQL", level: 78 },
 ];
 
-const NAV_LINKS = ["about", "skills", "contact"];
+const NAV_LINKS = ["about", "skills", "projects", "contact"];
 
+// ── ADD MORE PROJECTS HERE IN THE FUTURE ──────────────────────────────────────
 const PROJECTS = [
   {
-    title: "DevConnect",
-    desc: "Full-featured social platform for developers with real-time chat, post feeds, GitHub OAuth login, and profile portfolios.",
-    tech: ["React", "Node.js", "MongoDB", "Socket.io", "JWT"],
-    live: "#", github: "https://github.com/rishicodes-7",
+    title: "AI Resume Analyzer",
+    desc: "Full stack AI SaaS app that analyzes your resume against a job description, returns a match score, skill gaps, keyword analysis, and an AI-rewritten summary powered by LLaMA 3.3.",
+    tech: ["Next.js", "Groq API", "LLaMA 3.3", "Tailwind CSS", "Vercel"],
+    live: "https://my-resume-ai-rishicodes-7s-projects.vercel.app",
+    github: "https://github.com/rishicodes-7/my-resume-ai",
+    image: "/resume-ai.png",
+    badge: "LIVE",
   },
-  {
-    title: "ShopSwift",
-    desc: "End-to-end e-commerce solution with product management, cart system, Stripe payments, and order tracking. 98/100 Lighthouse score.",
-    tech: ["Next.js", "PostgreSQL", "Prisma", "Stripe", "TypeScript"],
-    live: "#", github: "https://github.com/rishicodes-7",
-  },
-  {
-    title: "TaskFlow",
-    desc: "Kanban-style project management app with drag-and-drop boards, real-time collaboration, and Redis caching reducing DB load by 60%.",
-    tech: ["React", "Express", "MongoDB", "Redis", "Docker"],
-    live: "#", github: "https://github.com/rishicodes-7",
-  },
+  // ── PROJECT 2 — uncomment and fill in when ready ──
+  // {
+  //   title: "Your Next Project",
+  //   desc: "Description of your project goes here.",
+  //   tech: ["React", "Node.js"],
+  //   live: "#",
+  //   github: "https://github.com/rishicodes-7",
+  //   image: null,
+  //   badge: "WIP",
+  // },
+
+  // ── PROJECT 3 — uncomment and fill in when ready ──
+  // {
+  //   title: "Your Next Project",
+  //   desc: "Description of your project goes here.",
+  //   tech: ["React", "Node.js"],
+  //   live: "#",
+  //   github: "https://github.com/rishicodes-7",
+  //   image: null,
+  //   badge: null,
+  // },
 ];
+// ─────────────────────────────────────────────────────────────────────────────
 
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -134,7 +148,6 @@ function Navbar({ scrolled }) {
           <span style={{ color: "var(--accent)" }}>{"<"}</span>RishiCodes<span style={{ color: "var(--accent)" }}>{">"}</span>
         </span>
 
-        {/* Desktop links */}
         {!isMobile && (
           <div style={{ display: "flex", gap: "28px", alignItems: "center" }}>
             {NAV_LINKS.map(l => (
@@ -160,7 +173,6 @@ function Navbar({ scrolled }) {
           </div>
         )}
 
-        {/* Hamburger */}
         {isMobile && (
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <button onClick={toggleTheme} style={{
@@ -193,7 +205,6 @@ function Navbar({ scrolled }) {
         )}
       </nav>
 
-      {/* Mobile menu */}
       {isMobile && menuOpen && (
         <div style={{
           position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 99,
@@ -278,16 +289,13 @@ function Hero() {
       boxSizing: "border-box", width: "100%",
     }}>
       <ParticlesCanvas />
-      {/* Grid */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 0,
         backgroundImage: `linear-gradient(rgba(147,51,234,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(147,51,234,0.04) 1px, transparent 1px)`,
         backgroundSize: "60px 60px",
       }} />
-      {/* Glow blob — clipped so it never causes overflow */}
       <div style={{
-        position: "absolute",
-        top: "10%",
+        position: "absolute", top: "10%",
         right: isMobile ? "-100px" : "5%",
         width: isMobile ? "250px" : "400px",
         height: isMobile ? "250px" : "400px",
@@ -297,8 +305,7 @@ function Hero() {
       }} />
 
       <div style={{
-        position: "relative", zIndex: 1,
-        width: "100%",
+        position: "relative", zIndex: 1, width: "100%",
         maxWidth: isMobile ? "100%" : "800px",
         paddingTop: isMobile ? "90px" : "0",
         paddingBottom: isMobile ? "60px" : "0",
@@ -352,8 +359,6 @@ function Hero() {
             borderRadius: "2px", width: isMobile ? "100%" : "auto",
             boxShadow: "0 0 30px rgba(147,51,234,0.4)", transition: "all 0.3s ease",
           }}>Get in Touch</button>
-
-          
         </div>
       </div>
     </section>
@@ -375,7 +380,6 @@ function About() {
         opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)",
         transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
       }}>
-        {/* Photo */}
         <div style={{ position: "relative", width: isMobile ? "200px" : "100%", margin: isMobile ? "0 auto" : "0" }}>
           <div style={{ width: "100%", paddingBottom: "100%", borderRadius: "4px", position: "relative", overflow: "hidden" }}>
             {[
@@ -401,7 +405,6 @@ function About() {
           }}>FULL STACK</div>
         </div>
 
-        {/* Text */}
         <div style={{ paddingTop: isMobile ? "20px" : "0" }}>
           <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.25em", color: "#9333ea", textTransform: "uppercase", marginBottom: "12px" }}>// about me</p>
           <h2 style={{
@@ -505,13 +508,26 @@ function Projects() {
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)" }}>
           <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.25em", color: "#9333ea", textTransform: "uppercase", marginBottom: "12px" }}>// projects</p>
-          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: isMobile ? "2.2rem" : "clamp(2rem, 4vw, 3.5rem)", color: "var(--text-primary)", lineHeight: 1.1, marginBottom: "40px" }}>
+          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: isMobile ? "2.2rem" : "clamp(2rem, 4vw, 3.5rem)", color: "var(--text-primary)", lineHeight: 1.1, marginBottom: "8px" }}>
             Things I've <span style={{ color: "#9333ea" }}>Built</span>
           </h2>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", color: "var(--text-secondary)", marginBottom: "40px" }}>
+            More projects coming soon — building in public 🚀
+          </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(300px, 1fr))", gap: "16px" }}>
-          {PROJECTS.map((p, i) => <ProjectCard key={p.title} project={p} delay={i * 120} inView={inView} />)}
+        {/* Project cards grid */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : PROJECTS.length === 1 ? "minmax(300px, 480px)" : "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "16px",
+        }}>
+          {PROJECTS.map((p, i) => (
+            <ProjectCard key={p.title} project={p} delay={i * 120} inView={inView} />
+          ))}
+
+          {/* Coming Soon placeholder card */}
+          <ComingSoonCard delay={PROJECTS.length * 120} inView={inView} />
         </div>
       </div>
     </section>
@@ -522,38 +538,97 @@ function ProjectCard({ project, delay, inView }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} style={{
-      padding: "24px",
       background: hovered ? "rgba(147,51,234,0.07)" : "var(--card-bg)",
       border: `1px solid ${hovered ? "rgba(147,51,234,0.5)" : "var(--border)"}`,
       borderRadius: "4px", transition: "all 0.3s ease",
       opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(30px)",
       transitionDelay: `${delay}ms`, transitionDuration: "0.7s",
-      display: "flex", flexDirection: "column", gap: "12px",
-      width: "100%", boxSizing: "border-box",
+      display: "flex", flexDirection: "column",
+      width: "100%", boxSizing: "border-box", overflow: "hidden",
     }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
-        <h3 style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.92rem", color: "var(--text-primary)" }}>{project.title}</h3>
-        <div style={{ display: "flex", gap: "10px", flexShrink: 0 }}>
-          {[{ label: "GitHub", href: project.github }, { label: "Live", href: project.live }].map(({ label, href }) => (
-            <a key={label} href={href} target="_blank" rel="noreferrer" style={{
-              fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "var(--text-secondary)",
-              textDecoration: "none", letterSpacing: "0.06em", textTransform: "uppercase", transition: "color 0.2s",
-            }}
-              onMouseEnter={e => e.target.style.color = "#9333ea"}
-              onMouseLeave={e => e.target.style.color = "var(--text-secondary)"}
-            >{label} ↗</a>
+      {/* Project screenshot */}
+      {project.image && (
+        <div style={{
+          width: "100%", height: "190px", overflow: "hidden",
+          borderBottom: `1px solid ${hovered ? "rgba(147,51,234,0.4)" : "var(--border)"}`,
+          position: "relative",
+        }}>
+          <img src={project.image} alt={project.title} style={{
+            width: "100%", height: "100%", objectFit: "cover", objectPosition: "top",
+            transition: "transform 0.5s ease",
+            transform: hovered ? "scale(1.04)" : "scale(1)",
+          }} />
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.55))",
+          }} />
+          {project.badge && (
+            <span style={{
+              position: "absolute", top: 10, right: 10,
+              background: "rgba(147,51,234,0.9)", color: "#fff",
+              fontFamily: "'Space Mono', monospace", fontSize: "0.55rem",
+              padding: "3px 10px", borderRadius: "2px", letterSpacing: "0.12em",
+            }}>{project.badge}</span>
+          )}
+        </div>
+      )}
+
+      {/* Card body */}
+      <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px", flex: 1 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
+          <h3 style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.92rem", color: "var(--text-primary)" }}>{project.title}</h3>
+          <div style={{ display: "flex", gap: "10px", flexShrink: 0 }}>
+            {[{ label: "GitHub", href: project.github }, { label: "Live", href: project.live }].map(({ label, href }) => (
+              <a key={label} href={href} target="_blank" rel="noreferrer" style={{
+                fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "var(--text-secondary)",
+                textDecoration: "none", letterSpacing: "0.06em", textTransform: "uppercase", transition: "color 0.2s",
+              }}
+                onMouseEnter={e => e.target.style.color = "#9333ea"}
+                onMouseLeave={e => e.target.style.color = "var(--text-secondary)"}
+              >{label} ↗</a>
+            ))}
+          </div>
+        </div>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.7, flex: 1 }}>{project.desc}</p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+          {project.tech.map(t => (
+            <span key={t} style={{
+              fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "#9333ea",
+              padding: "3px 9px", border: "1px solid rgba(147,51,234,0.3)", borderRadius: "2px",
+            }}>{t}</span>
           ))}
         </div>
       </div>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.7, flex: 1 }}>{project.desc}</p>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-        {project.tech.map(t => (
-          <span key={t} style={{
-            fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "#9333ea",
-            padding: "3px 9px", border: "1px solid rgba(147,51,234,0.3)", borderRadius: "2px",
-          }}>{t}</span>
-        ))}
-      </div>
+    </div>
+  );
+}
+
+// ── Coming Soon placeholder ───────────────────────────────────────────────────
+function ComingSoonCard({ delay, inView }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} style={{
+      background: hovered ? "rgba(147,51,234,0.04)" : "transparent",
+      border: `1px dashed ${hovered ? "rgba(147,51,234,0.4)" : "rgba(255,255,255,0.08)"}`,
+      borderRadius: "4px", transition: "all 0.3s ease",
+      opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(30px)",
+      transitionDelay: `${delay}ms`, transitionDuration: "0.7s",
+      display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+      minHeight: "240px", width: "100%", boxSizing: "border-box", padding: "32px",
+      cursor: "default",
+    }}>
+      <div style={{
+        width: "40px", height: "40px", borderRadius: "50%",
+        border: "1px dashed rgba(147,51,234,0.3)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        marginBottom: "16px", fontSize: "1.2rem",
+        color: "rgba(147,51,234,0.4)",
+      }}>+</div>
+      <p style={{
+        fontFamily: "'Space Mono', monospace", fontSize: "0.7rem",
+        color: "rgba(255,255,255,0.15)", letterSpacing: "0.15em",
+        textTransform: "uppercase", textAlign: "center",
+      }}>Next Project<br />Coming Soon</p>
     </div>
   );
 }
@@ -591,8 +666,7 @@ function Contact() {
           fontFamily: "'Space Mono', monospace", fontSize: "0.75rem",
           letterSpacing: "0.1em", textTransform: "uppercase",
           borderRadius: "2px", boxShadow: "0 0 40px rgba(147,51,234,0.4)",
-          boxSizing: "border-box",
-          transition: "all 0.3s ease",
+          boxSizing: "border-box", transition: "all 0.3s ease",
         }}>Say Hello →</a>
 
         <div style={{ marginTop: "36px", display: "flex", justifyContent: "center", gap: isMobile ? "20px" : "32px", flexWrap: "wrap" }}>
@@ -654,7 +728,6 @@ export default function App() {
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* CRITICAL: both html AND body need overflow-x hidden */
         html {
           scroll-behavior: smooth;
           overflow-x: hidden;
@@ -695,7 +768,6 @@ export default function App() {
         section + section { border-top: 1px solid var(--border); }
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        @keyframes scrollPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
 
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #060606; }
@@ -706,6 +778,7 @@ export default function App() {
       <Hero />
       <About />
       <Skills />
+      <Projects />
       <Contact />
       <Footer />
     </ThemeProvider>
