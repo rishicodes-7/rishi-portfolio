@@ -2,7 +2,7 @@
 
 A fast, responsive developer portfolio built with React. Features smooth animations, dark/light mode, particle effects, and a projects showcase.
 
-🔗 **Live Site:** [rishicodes.vercel.app](https://rishicodes.vercel.app)
+🔗 **Live Site:** [rishicodes.vercel.app](rishi-portfolioo.vercel.app/)
 
 ---
 
