@@ -583,7 +583,7 @@ function Contact() {
           Have a project in mind or just want to say hi? My inbox is always open. I'll get back to you as soon as possible.
         </p>
 
-        <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=GTvVlcSBpszgFlSWTPwzszsSvxxQHxbjBfXvqKzxHhRpfzLCvxkgFwhDlxlMwPHHSPjMxtLJFqpdF" style={{
+        <a href="https://mail.google.com/mail/u/0/?to=rishicodes7@gmail.com&fs=1&tf=cm" style={{
           display: isMobile ? "block" : "inline-block",
           padding: "13px 36px",
           background: "linear-gradient(135deg, #7c3aed, #9333ea)",
@@ -599,7 +599,7 @@ function Contact() {
           {[
             { label: "GitHub", href: "https://github.com/rishicodes-7" },
             { label: "LinkedIn", href: "https://linkedin.com/in/rishicodes" },
-            { label: "Email", href: "https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=GTvVlcSBpszgFlSWTPwzszsSvxxQHxbjBfXvqKzxHhRpfzLCvxkgFwhDlxlMwPHHSPjMxtLJFqpdF" },
+            { label: "Email", href: "https://mail.google.com/mail/u/0/?to=rishicodes7@gmail.com&fs=1&tf=cm" },
           ].map(({ label, href }) => (
             <a key={label} href={href} style={{
               fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", color: "var(--text-secondary)",
