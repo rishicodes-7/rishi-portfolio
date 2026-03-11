@@ -56,16 +56,16 @@ const PROJECTS = [
     image: "/resume-ai.png",
     badge: "LIVE",
   },
-  // ── PROJECT 2 — uncomment and fill in when ready ──
-  // {
-  //   title: "Your Next Project",
-  //   desc: "Description of your project goes here.",
-  //   tech: ["React", "Node.js"],
-  //   live: "#",
-  //   github: "https://github.com/rishicodes-7",
-  //   image: null,
-  //   badge: "WIP",
-  // },
+
+{
+    title: "SnapLink",
+    desc: "A full stack URL shortener with click analytics. Paste any long URL, get a short link instantly, and track clicks over time with a bar chart dashboard.",
+    tech: ["Next.js", "Supabase", "Recharts", "Vercel"],
+    live: "https://snaplink-wine.vercel.app/",
+    github: "https://github.com/rishicodes-7/snaplink",
+    image: "/snaplink.png",
+    badge: "LIVE",
+  },
 
   // ── PROJECT 3 — uncomment and fill in when ready ──
   // {
