@@ -35,12 +35,12 @@ function useWindowSize() {
 }
 
 const SKILLS = [
-  { name: "React", level: 90 },
-  { name: "TypeScript", level: 85 },
-  { name: "Node.js", level: 88 },
-  { name: "Express", level: 82 },
-  { name: "MongoDB", level: 80 },
-  { name: "PostgreSQL", level: 78 },
+  { name: "JavaScript", level: 85 },
+  { name: "React.js", level: 82 },
+  { name: "Next.js", level: 80 },
+  { name: "Tailwind CSS", level: 85 },
+  { name: "Supabase", level: 75 },
+  { name: "PostgreSQL", level: 72 },
 ];
 
 const NAV_LINKS = ["about", "skills", "projects", "contact"];
@@ -286,7 +286,7 @@ function Hero() {
   const width = useWindowSize();
   const isMobile = width <= 768;
   const isSmall = width <= 480;
-  const typed = useTypewriter(["Full Stack Developer.", "MERN Stack Engineer.", "TypeScript Enthusiast.", "Problem Solver."], 40, 1000);
+  const typed = useTypewriter(["Full Stack Developer.", "Next.js Developer.", "React Developer.", "Problem Solver."], 40, 1000);
   const [show, setShow] = useState(false);
   useEffect(() => { setTimeout(() => setShow(true), 200); }, []);
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -352,8 +352,8 @@ function Hero() {
           maxWidth: isMobile ? "100%" : "520px",
           marginBottom: "32px", fontFamily: "'DM Sans', sans-serif",
         }}>
-          Building scalable, performant web applications from database to UI.
-          I turn complex problems into elegant, maintainable solutions.
+          Building real, deployed web applications using Next.js, Supabase, and AI APIs.
+          I turn ideas into live products — fast.
         </p>
 
         <div style={{
@@ -369,6 +369,18 @@ function Hero() {
             borderRadius: "2px", width: isMobile ? "100%" : "auto",
             boxShadow: "0 0 30px rgba(147,51,234,0.4)", transition: "all 0.3s ease",
           }}>Get in Touch</button>
+          <a href="https://linkedin.com/in/rishicodes" target="_blank" rel="noreferrer" style={{
+            padding: "13px 28px",
+            background: "transparent",
+            border: "1px solid var(--border)", color: "var(--text-secondary)",
+            fontFamily: "'Space Mono', monospace", fontSize: "0.75rem",
+            letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer",
+            borderRadius: "2px", width: isMobile ? "100%" : "auto",
+            textDecoration: "none", transition: "all 0.3s ease", display: "inline-block", textAlign: "center",
+          }}
+            onMouseEnter={e => { e.target.style.borderColor = "#9333ea"; e.target.style.color = "#9333ea"; }}
+            onMouseLeave={e => { e.target.style.borderColor = "var(--border)"; e.target.style.color = "var(--text-secondary)"; }}
+          >LinkedIn ↗</a>
         </div>
       </div>
     </section>
@@ -412,7 +424,7 @@ function About() {
             background: "#9333ea", padding: "8px 14px",
             fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", color: "#fff",
             letterSpacing: "0.1em", borderRadius: "2px",
-          }}>FULL STACK</div>
+          }}>OPEN TO INTERNSHIPS</div>
         </div>
 
         <div style={{ paddingTop: isMobile ? "20px" : "0" }}>
@@ -425,13 +437,16 @@ function About() {
             Crafting Digital <span style={{ color: "#9333ea" }}>Experiences</span>
           </h2>
           <p style={{ color: "var(--text-muted)", lineHeight: 1.9, fontSize: "0.92rem", marginBottom: "14px", fontFamily: "'DM Sans', sans-serif" }}>
-            I'm a Full Stack Developer passionate about crafting clean, efficient, and user-friendly web applications. I specialize in the MERN stack along with TypeScript and PostgreSQL, turning complex problems into elegant solutions.
+            I'm a self-taught Full Stack Developer and Class 12 PCM student. I build real, deployed web applications using Next.js, Supabase, and AI APIs — all from scratch, independently.
+          </p>
+          <p style={{ color: "var(--text-muted)", lineHeight: 1.9, fontSize: "0.92rem", fontFamily: "'DM Sans', sans-serif" }}>
+            Currently in Class 12 and actively looking for a full stack internship where I can contribute real work, learn fast, and keep building.
           </p>
           <p style={{ color: "var(--text-muted)", lineHeight: 1.9, fontSize: "0.92rem", fontFamily: "'DM Sans', sans-serif" }}>
             When I'm not coding, I'm exploring new technologies and pushing the boundaries of what the web can do — always curious, always building.
           </p>
           <div style={{ marginTop: "32px", display: "flex", gap: isMobile ? "20px" : "40px", flexWrap: "wrap" }}>
-            {[["3+", "Years Exp."], ["20+", "Projects"], ["10+", "Technologies"]].map(([n, l]) => (
+            {[["3", "Live Projects"], ["10+", "Technologies"], ["100%", "Self Taught"]].map(([n, l]) => (
               <div key={l}>
                 <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "1.8rem", fontWeight: 700, color: "#9333ea" }}>{n}</div>
                 <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.75rem", color: "var(--text-secondary)" }}>{l}</div>
@@ -465,7 +480,7 @@ function Skills() {
         </div>
 
         <div style={{ marginTop: "40px", display: "flex", flexWrap: "wrap", gap: "8px", opacity: inView ? 1 : 0, transition: "opacity 0.8s ease 0.5s" }}>
-          {["REST APIs", "GraphQL", "Docker", "Git", "Linux", "AWS", "Redis", "JWT", "WebSockets", "CI/CD"].map(tag => (
+          {["REST APIs", "Git", "Vercel", "Recharts", "Supabase Auth", "Row Level Security", "App Router", "Responsive Design"].map(tag => (
             <span key={tag} style={{
               fontFamily: "'Space Mono', monospace", fontSize: "0.65rem",
               color: "var(--text-secondary)", padding: "5px 10px",
@@ -536,8 +551,7 @@ function Projects() {
             <ProjectCard key={p.title} project={p} delay={i * 120} inView={inView} />
           ))}
 
-          {/* Coming Soon placeholder card */}
-          <ComingSoonCard delay={PROJECTS.length * 120} inView={inView} />
+
         </div>
       </div>
     </section>
@@ -668,7 +682,7 @@ function Contact() {
           Have a project in mind or just want to say hi? My inbox is always open. I'll get back to you as soon as possible.
         </p>
 
-        <a href="https://mail.google.com/mail/u/0/?to=rishicodes7@gmail.com&fs=1&tf=cm" style={{
+        <a href="mailto:rishicodes7@gmail.com" style={{
           display: isMobile ? "block" : "inline-block",
           padding: "13px 36px",
           background: "linear-gradient(135deg, #7c3aed, #9333ea)",
@@ -683,7 +697,7 @@ function Contact() {
           {[
             { label: "GitHub", href: "https://github.com/rishicodes-7" },
             { label: "LinkedIn", href: "https://linkedin.com/in/rishicodes" },
-            { label: "Email", href: "https://mail.google.com/mail/u/0/?to=rishicodes7@gmail.com&fs=1&tf=cm" },
+            { label: "Email", href: "mailto:rishicodes7@gmail.com" },
           ].map(({ label, href }) => (
             <a key={label} href={href} style={{
               fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", color: "var(--text-secondary)",
