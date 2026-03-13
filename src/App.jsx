@@ -51,7 +51,7 @@ const PROJECTS = [
     title: "AI Resume Analyzer",
     desc: "Full stack AI SaaS app that analyzes your resume against a job description, returns a match score, skill gaps, keyword analysis, and an AI-rewritten summary powered by LLaMA 3.3.",
     tech: ["Next.js", "Groq API", "LLaMA 3.3", "Tailwind CSS", "Vercel"],
-    live: "https://my-resume-ai-rishicodes-7s-projects.vercel.app",
+    live: "my-resume-ai-omega.vercel.app",
     github: "https://github.com/rishicodes-7/my-resume-ai",
     image: "/resume-ai.png",
     badge: "LIVE",
