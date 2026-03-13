@@ -67,7 +67,17 @@ const PROJECTS = [
     badge: "LIVE",
   },
 
-  // ── PROJECT 3 — uncomment and fill in when ready ──
+  {
+  title: "SpendSmart",
+  desc: "A full stack expense tracker with real-time charts. Add income and expenses, visualize spending by category with a pie chart, and track monthly overview with a bar chart.",
+  tech: ["Next.js", "Supabase", "Recharts", "Vercel"],
+  live: "https://spendsmart-taupe.vercel.app",
+  github: "https://github.com/rishicodes-7/spendsmart",
+  image: "/spendsmart.png",
+  badge: "LIVE",
+},
+
+  // ── PROJECT 4 — uncomment and fill in when ready ──
   // {
   //   title: "Your Next Project",
   //   desc: "Description of your project goes here.",
