@@ -77,6 +77,16 @@ const PROJECTS = [
   badge: "LIVE",
 },
 
+{
+  title: "Nexus Chat",
+  desc: "Real-time chat app with multiple rooms, live online presence tracking, and instant messaging powered by Supabase Realtime. Messages appear instantly across all connected users without refreshing.",
+  tech: ["Next.js", "Supabase Realtime", "Supabase Auth", "PostgreSQL", "Vercel"],
+  live: "https://nexus-chat-mocha.vercel.app/",
+  github: "https://github.com/rishicodes-7/nexus-chat",
+  image: "/nexus.png",
+  badge: "LIVE",
+},
+
   // ── PROJECT 4 — uncomment and fill in when ready ──
   // {
   //   title: "Your Next Project",
