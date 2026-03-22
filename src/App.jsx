@@ -48,14 +48,14 @@ const NAV_LINKS = ["about", "skills", "projects", "contact"];
 // ── ADD MORE PROJECTS HERE IN THE FUTURE ──────────────────────────────────────
 const PROJECTS = [
   {
-    title: "AI Resume Analyzer",
-    desc: "Full stack AI SaaS app that analyzes your resume against a job description, returns a match score, skill gaps, keyword analysis, and an AI-rewritten summary powered by LLaMA 3.3.",
-    tech: ["Next.js", "Groq API", "LLaMA 3.3", "Tailwind CSS", "Vercel"],
-    live: "https://my-resume-ai-omega.vercel.app/",
-    github: "https://github.com/rishicodes-7/my-resume-ai",
-    image: "/resume-ai.png",
-    badge: "LIVE",
-  },
+  title: "AI Resume Analyzer",
+  desc: "Full stack AI SaaS app that analyzes your resume against a job description. Upload a PDF or paste text to get a match score, skill gaps, keyword analysis, and an AI-rewritten summary powered by LLaMA 3.3.",
+  tech: ["Next.js", "Groq API", "LLaMA 3.3", "pdf2json", "Vercel"],
+  live: "https://my-resume-ai-omega.vercel.app/",
+  github: "https://github.com/rishicodes-7/my-resume-ai",
+  image: "/resume-ai.png",
+  badge: "LIVE",
+},
 
 {
     title: "SnapLink",
