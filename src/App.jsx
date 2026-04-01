@@ -45,12 +45,6 @@ const SKILLS = [
 
 const NAV_LINKS = ["about", "skills", "projects", "contact"];
 
-// ── ADD MORE PROJECTS HERE IN THE FUTURE ──────────────────────────────────────
-import { useState } from "react";
-
-// ── PROJECTS ARRAY ──────────────────────────────────────────────
-import { useState, useEffect } from "react";
-
 // ── PROJECTS ARRAY ──────────────────────────────────────────────
 import { useState, useEffect } from "react";
 
