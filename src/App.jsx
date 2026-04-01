@@ -46,68 +46,203 @@ const SKILLS = [
 const NAV_LINKS = ["about", "skills", "projects", "contact"];
 
 // ── ADD MORE PROJECTS HERE IN THE FUTURE ──────────────────────────────────────
+import { useState } from "react";
+
+// ── PROJECTS ARRAY ──────────────────────────────────────────────
+import { useState, useEffect } from "react";
+
+// ── PROJECTS ARRAY ──────────────────────────────────────────────
+import { useState, useEffect } from "react";
+
+// ── PROJECTS ARRAY ──────────────────────────────────────────────
 const PROJECTS = [
   {
-  title: "AI Resume Analyzer",
-  desc: "Full stack AI SaaS app that analyzes your resume against a job description. Upload a PDF or paste text to get a match score, skill gaps, keyword analysis, and an AI-rewritten summary powered by LLaMA 3.3.",
-  tech: ["Next.js", "Groq API", "LLaMA 3.3", "pdf2json", "Vercel"],
-  live: "https://my-resume-ai-omega.vercel.app/",
-  github: "https://github.com/rishicodes-7/my-resume-ai",
-  image: "/resume-ai.png",
-  badge: "LIVE",
-},
-
-{
+    title: "AI Resume Analyzer",
+    desc: "...",
+    tech: ["Next.js", "Groq API", "LLaMA 3.3", "pdf2json", "Vercel"],
+    live: "https://my-resume-ai-omega.vercel.app/",
+    github: "https://github.com/rishicodes-7/my-resume-ai",
+    image: "/resume-ai.png",
+    badge: "LIVE",
+    category: "AI",
+  },
+  {
     title: "SnapLink",
-    desc: "A full stack URL shortener with click analytics. Paste any long URL, get a short link instantly, and track clicks over time with a bar chart dashboard.",
+    desc: "...",
     tech: ["Next.js", "Supabase", "Recharts", "Vercel"],
     live: "https://snaplink-wine.vercel.app/",
     github: "https://github.com/rishicodes-7/snaplink",
     image: "/snaplink.png",
     badge: "LIVE",
+    category: "Fullstack",
   },
-
   {
-  title: "SpendSmart",
-  desc: "A full stack expense tracker with real-time charts. Add income and expenses, visualize spending by category with a pie chart, and track monthly overview with a bar chart.",
-  tech: ["Next.js", "Supabase", "Recharts", "Vercel"],
-  live: "https://spendsmart-taupe.vercel.app",
-  github: "https://github.com/rishicodes-7/spendsmart",
-  image: "/spendsmart.png",
-  badge: "LIVE",
-},
-
-{
-  title: "Nexus Chat",
-  desc: "Real-time chat app with multiple rooms, live online presence tracking, and instant messaging powered by Supabase Realtime. Messages appear instantly across all connected users without refreshing.",
-  tech: ["Next.js", "Supabase Realtime", "Supabase Auth", "PostgreSQL", "Vercel"],
-  live: "https://nexus-chat-mocha.vercel.app/",
-  github: "https://github.com/rishicodes-7/nexus-chat",
-  image: "/nexus.png",
-  badge: "LIVE",
-},
-
-{
-  title: "LinkDrop",
-  desc: "A Linktree-style link page builder. Create your own page with a custom username, add links, and share one URL with the world. Includes click tracking per link.",
-  tech: ["Next.js", "Supabase", "PostgreSQL", "Vercel"],
-  live: "https://linkdrop-kohl.vercel.app/",
-  github: "https://github.com/rishicodes-7/linkdrop",
-  image: "/linkdrop.png",
-  badge: "LIVE",
-},
-  // ── PROJECT 4 — uncomment and fill in when ready ──
-  // {
-  //   title: "Your Next Project",
-  //   desc: "Description of your project goes here.",
-  //   tech: ["React", "Node.js"],
-  //   live: "#",
-  //   github: "https://github.com/rishicodes-7",
-  //   image: null,
-  //   badge: null,
-  // },
+    title: "SpendSmart",
+    desc: "...",
+    tech: ["Next.js", "Supabase", "Recharts", "Vercel"],
+    live: "https://spendsmart-taupe.vercel.app",
+    github: "https://github.com/rishicodes-7/spendsmart",
+    image: "/spendsmart.png",
+    badge: "LIVE",
+    category: "Fullstack",
+  },
+  {
+    title: "Nexus Chat",
+    desc: "...",
+    tech: ["Next.js", "Supabase Realtime", "Supabase Auth", "PostgreSQL", "Vercel"],
+    live: "https://nexus-chat-mocha.vercel.app/",
+    github: "https://github.com/rishicodes-7/nexus-chat",
+    image: "/nexus.png",
+    badge: "LIVE",
+    category: "Fullstack",
+  },
+  {
+    title: "LinkDrop",
+    desc: "...",
+    tech: ["Next.js", "Supabase", "PostgreSQL", "Vercel"],
+    live: "https://linkdrop-kohl.vercel.app/",
+    github: "https://github.com/rishicodes-7/linkdrop",
+    image: "/linkdrop.png",
+    badge: "LIVE",
+    category: "Fullstack",
+  },
 ];
-// ─────────────────────────────────────────────────────────────────────────────
+
+// ── PROJECTS COMPONENT ──────────────────────────────────────────
+export default function Projects() {
+  const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState(""); // new search state
+  const [fade, setFade] = useState(true); // for animation
+
+  // Filter + search
+  const filteredProjects = PROJECTS.filter((p) => {
+    const matchesCategory = filter === "All" ? true : p.category === filter;
+    const matchesSearch =
+      p.title.toLowerCase().includes(search.toLowerCase()) ||
+      p.tech.some((t) => t.toLowerCase().includes(search.toLowerCase()));
+    return matchesCategory && matchesSearch;
+  });
+
+  // Fade animation on filter or search change
+  useEffect(() => {
+    setFade(false);
+    const timer = setTimeout(() => setFade(true), 50);
+    return () => clearTimeout(timer);
+  }, [filter, search]);
+
+  return (
+    <section id="projects" style={{ padding: "80px 20px", maxWidth: "1100px", margin: "0 auto" }}>
+      <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.5rem", marginBottom: "20px" }}>
+        My Projects
+      </h2>
+
+      {/* Filter Buttons */}
+      <div style={{ display: "flex", gap: "12px", marginBottom: "12px" }}>
+        {["All", "AI", "Fullstack"].map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            style={{
+              padding: "6px 14px",
+              border: "1px solid var(--border)",
+              background: filter === f ? "#9333ea" : "transparent",
+              color: filter === f ? "#fff" : "var(--text-secondary)",
+              cursor: "pointer",
+              fontSize: "0.7rem",
+              fontFamily: "'Space Mono', monospace",
+              letterSpacing: "0.08em",
+              boxShadow: filter === f ? "0 0 10px rgba(147,51,234,0.5)" : "none",
+              transition: "all 0.3s ease",
+            }}
+          >
+            {f} ({f === "All" ? PROJECTS.length : PROJECTS.filter(p => p.category === f).length})
+          </button>
+        ))}
+      </div>
+
+      {/* Search Bar */}
+      <input
+        type="text"
+        placeholder="Search projects by name or tech..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{
+          padding: "8px 12px",
+          width: "100%",
+          maxWidth: "400px",
+          marginBottom: "24px",
+          border: "1px solid var(--border)",
+          borderRadius: "4px",
+          fontSize: "0.8rem",
+          fontFamily: "'Space Mono', monospace",
+        }}
+      />
+
+      {/* Projects Grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
+        {filteredProjects.map((p, i) => (
+          <div
+            key={i}
+            style={{
+              border: "1px solid var(--border)",
+              borderRadius: "6px",
+              overflow: "hidden",
+              background: "#fff",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+              opacity: fade ? 1 : 0,
+              transform: fade ? "translateY(0)" : "translateY(20px)",
+              transition: "opacity 0.5s ease, transform 0.5s ease",
+            }}
+          >
+            <img src={p.image} alt={p.title} style={{ width: "100%", height: "160px", objectFit: "cover" }} />
+            <div style={{ padding: "16px" }}>
+              <h3 style={{ marginBottom: "8px", fontFamily: "'Bebas Neue', sans-serif" }}>{p.title}</h3>
+              <p style={{ fontSize: "0.9rem", color: "var(--text-muted)", marginBottom: "12px" }}>{p.desc}</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "12px" }}>
+  {p.tech.map((t) => (
+    <span
+      key={t}
+      style={{
+        fontSize: "0.7rem",
+        padding: "2px 6px",
+        border: "1px solid var(--border)",
+        borderRadius: "2px",
+        transition: "all 0.3s ease",
+        cursor: "default",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = "#9333ea";
+        e.currentTarget.style.color = "#fff";
+        e.currentTarget.style.transform = "scale(1.1)";
+        e.currentTarget.style.boxShadow = "0 0 8px rgba(147,51,234,0.5)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = "transparent";
+        e.currentTarget.style.color = "var(--text-secondary)";
+        e.currentTarget.style.transform = "scale(1)";
+        e.currentTarget.style.boxShadow = "none";
+      }}
+    >
+      {t}
+    </span>
+  ))}
+</div>
+              <div style={{ display: "flex", gap: "12px" }}>
+                <a href={p.live} target="_blank" style={{ fontSize: "0.8rem", color: "#9333ea" }}>Live</a>
+                <a href={p.github} target="_blank" style={{ fontSize: "0.8rem", color: "#9333ea" }}>GitHub</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p style={{ marginTop: "32px", color: "var(--text-secondary)", fontSize: "0.8rem" }}>
+        More projects coming soon — building in public 🚀
+      </p>
+    </section>
+  );
+}
+
 
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -301,6 +436,7 @@ function ParticlesCanvas() {
 }
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
+const projectCount = PROJECTS.length;
 function Hero() {
   const width = useWindowSize();
   const isMobile = width <= 768;
@@ -371,8 +507,17 @@ function Hero() {
           maxWidth: isMobile ? "100%" : "520px",
           marginBottom: "32px", fontFamily: "'DM Sans', sans-serif",
         }}>
-          Building real, deployed web applications using Next.js, Supabase, and AI APIs.
-          I turn ideas into live products — fast.
+          <p style={{
+  fontSize: isMobile ? "0.9rem" : "1rem",
+  color: "var(--text-muted)",
+  lineHeight: 1.8,
+  maxWidth: isMobile ? "100%" : "520px",
+  marginBottom: "32px",
+  fontFamily: "'DM Sans', sans-serif",
+}}>
+  Built {projectCount}+ real-world projects using Next.js, Supabase, and AI APIs.
+  I turn ideas into live products — fast.
+</p>
         </p>
 
         <div style={{
@@ -412,63 +557,158 @@ function About() {
   const isMobile = width <= 768;
   const [ref, inView] = useInView();
 
+  // 🔥 Auto-count LIVE projects
+  const liveProjectsCount = PROJECTS.filter(p => p.badge === "LIVE").length;
+
+  const stats = [
+    [liveProjectsCount.toString(), "Live Projects"],
+    ["10+", "Technologies"],
+    ["100%", "Self Taught"]
+  ];
+
   return (
-    <section id="about" ref={ref} style={{ padding: isMobile ? "80px 20px" : "120px 48px", boxSizing: "border-box", width: "100%" }}>
-      <div style={{
-        maxWidth: "1100px", margin: "0 auto",
-        display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1.5fr",
-        gap: isMobile ? "48px" : "80px", alignItems: "center",
-        opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)",
-        transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
-      }}>
-        <div style={{ position: "relative", width: isMobile ? "200px" : "100%", margin: isMobile ? "0 auto" : "0" }}>
-          <div style={{ width: "100%", paddingBottom: "100%", borderRadius: "4px", position: "relative", overflow: "hidden" }}>
+    <section
+      id="about"
+      ref={ref}
+      style={{
+        padding: isMobile ? "80px 20px" : "120px 48px",
+        boxSizing: "border-box",
+        width: "100%"
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1.5fr",
+          gap: isMobile ? "48px" : "80px",
+          alignItems: "center",
+          opacity: inView ? 1 : 0,
+          transform: inView ? "translateY(0)" : "translateY(40px)",
+          transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)"
+        }}
+      >
+        {/* ── Image Section ── */}
+        <div
+          style={{
+            position: "relative",
+            width: isMobile ? "200px" : "100%",
+            margin: isMobile ? "0 auto" : "0"
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              paddingBottom: "100%",
+              borderRadius: "4px",
+              position: "relative",
+              overflow: "hidden"
+            }}
+          >
             {[
               { top: -1, left: -1, borderTop: "2px solid #9333ea", borderLeft: "2px solid #9333ea" },
               { top: -1, right: -1, borderTop: "2px solid #9333ea", borderRight: "2px solid #9333ea" },
               { bottom: -1, left: -1, borderBottom: "2px solid #9333ea", borderLeft: "2px solid #9333ea" },
-              { bottom: -1, right: -1, borderBottom: "2px solid #9333ea", borderRight: "2px solid #9333ea" },
-            ].map((s, i) => <div key={i} style={{ position: "absolute", width: "18px", height: "18px", zIndex: 2, ...s }} />)}
-            <img src="/profile.png" alt="Rishi Codes" style={{
-              position: "absolute", inset: 0, width: "100%", height: "100%",
-              objectFit: "cover", objectPosition: "center top",
-            }} />
-            <div style={{
-              position: "absolute", bottom: 0, left: 0, right: 0, height: "40%",
-              background: "linear-gradient(to top, rgba(147,51,234,0.25), transparent)", zIndex: 1,
-            }} />
+              { bottom: -1, right: -1, borderBottom: "2px solid #9333ea", borderRight: "2px solid #9333ea" }
+            ].map((s, i) => (
+              <div key={i} style={{ position: "absolute", width: "18px", height: "18px", zIndex: 2, ...s }} />
+            ))}
+
+            <img
+              src="/profile.png"
+              alt="Rishi Codes"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center top"
+              }}
+            />
+
+            <div
+              style={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: "40%",
+                background: "linear-gradient(to top, rgba(147,51,234,0.25), transparent)",
+                zIndex: 1
+              }}
+            />
           </div>
-          <div style={{
-            position: "absolute", bottom: "-14px", right: "-10px",
-            background: "#9333ea", padding: "8px 14px",
-            fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", color: "#fff",
-            letterSpacing: "0.1em", borderRadius: "2px",
-          }}>OPEN TO INTERNSHIPS</div>
+
+          <div
+            style={{
+              position: "absolute",
+              bottom: "-14px",
+              right: "-10px",
+              background: "#9333ea",
+              padding: "8px 14px",
+              fontFamily: "'Space Mono', monospace",
+              fontSize: "0.62rem",
+              color: "#fff",
+              letterSpacing: "0.1em",
+              borderRadius: "2px"
+            }}
+          >
+            OPEN TO INTERNSHIPS
+          </div>
         </div>
 
+        {/* ── Text Section ── */}
         <div style={{ paddingTop: isMobile ? "20px" : "0" }}>
-          <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.25em", color: "#9333ea", textTransform: "uppercase", marginBottom: "12px" }}>// about me</p>
+          <p style={{
+            fontFamily: "'Space Mono', monospace",
+            fontSize: "0.72rem",
+            letterSpacing: "0.25em",
+            color: "#9333ea",
+            textTransform: "uppercase",
+            marginBottom: "12px"
+          }}>
+            // about me
+          </p>
+
           <h2 style={{
             fontFamily: "'Bebas Neue', sans-serif",
             fontSize: isMobile ? "2.2rem" : "clamp(2rem, 4vw, 3.5rem)",
-            color: "var(--text-primary)", lineHeight: 1.1, marginBottom: "20px",
+            color: "var(--text-primary)",
+            lineHeight: 1.1,
+            marginBottom: "20px"
           }}>
             Crafting Digital <span style={{ color: "#9333ea" }}>Experiences</span>
           </h2>
-          <p style={{ color: "var(--text-muted)", lineHeight: 1.9, fontSize: "0.92rem", marginBottom: "14px", fontFamily: "'DM Sans', sans-serif" }}>
-            I'm a self-taught Full Stack Developer and Class 12 PCM student. I build real, deployed web applications using Next.js, Supabase, and AI APIs — all from scratch, independently.
+
+          <p style={{ color: "var(--text-muted)", lineHeight: 1.9, fontSize: "0.92rem" }}>
+            I'm a self-taught Full Stack Developer and Class 12 PCM student. I build real, deployed web applications using Next.js, Supabase, and AI APIs.
           </p>
-          <p style={{ color: "var(--text-muted)", lineHeight: 1.9, fontSize: "0.92rem", fontFamily: "'DM Sans', sans-serif" }}>
-            Currently in Class 12 and actively looking for a full stack internship where I can contribute real work, learn fast, and keep building.
+
+          <p style={{ color: "var(--text-muted)", lineHeight: 1.9, fontSize: "0.92rem" }}>
+            Currently looking for a full stack internship where I can contribute real work and grow fast.
           </p>
-          <p style={{ color: "var(--text-muted)", lineHeight: 1.9, fontSize: "0.92rem", fontFamily: "'DM Sans', sans-serif" }}>
-            When I'm not coding, I'm exploring new technologies and pushing the boundaries of what the web can do — always curious, always building.
-          </p>
-          <div style={{ marginTop: "32px", display: "flex", gap: isMobile ? "20px" : "40px", flexWrap: "wrap" }}>
-            {[["3", "Live Projects"], ["10+", "Technologies"], ["100%", "Self Taught"]].map(([n, l]) => (
+
+          {/* ── Stats ── */}
+          <div style={{ marginTop: "32px", display: "flex", gap: "40px", flexWrap: "wrap" }}>
+            {stats.map(([n, l]) => (
               <div key={l}>
-                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "1.8rem", fontWeight: 700, color: "#9333ea" }}>{n}</div>
-                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.75rem", color: "var(--text-secondary)" }}>{l}</div>
+                <div style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "1.8rem",
+                  fontWeight: 700,
+                  color: "#9333ea"
+                }}>
+                  {n}
+                </div>
+                <div style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: "0.75rem",
+                  color: "var(--text-secondary)"
+                }}>
+                  {l}
+                </div>
               </div>
             ))}
           </div>
