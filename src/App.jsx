@@ -10,13 +10,10 @@ function useTheme() {
 
 function ThemeProvider({ children }) {
   const [theme, setTheme] = useState('dark');
-
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
-
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
@@ -33,210 +30,6 @@ function useWindowSize() {
   }, []);
   return width;
 }
-
-const SKILLS = [
-  { name: "JavaScript", level: 85 },
-  { name: "React.js", level: 82 },
-  { name: "Next.js", level: 80 },
-  { name: "Tailwind CSS", level: 85 },
-  { name: "Supabase", level: 75 },
-  { name: "PostgreSQL", level: 72 },
-];
-
-const NAV_LINKS = ["about", "skills", "projects", "contact"];
-
-// ── PROJECTS ARRAY ──────────────────────────────────────────────
-import { useState, useEffect } from "react";
-
-// ── PROJECTS ARRAY ──────────────────────────────────────────────
-const PROJECTS = [
-  {
-    title: "AI Resume Analyzer",
-    desc: "...",
-    tech: ["Next.js", "Groq API", "LLaMA 3.3", "pdf2json", "Vercel"],
-    live: "https://my-resume-ai-omega.vercel.app/",
-    github: "https://github.com/rishicodes-7/my-resume-ai",
-    image: "/resume-ai.png",
-    badge: "LIVE",
-    category: "AI",
-  },
-  {
-    title: "SnapLink",
-    desc: "...",
-    tech: ["Next.js", "Supabase", "Recharts", "Vercel"],
-    live: "https://snaplink-wine.vercel.app/",
-    github: "https://github.com/rishicodes-7/snaplink",
-    image: "/snaplink.png",
-    badge: "LIVE",
-    category: "Fullstack",
-  },
-  {
-    title: "SpendSmart",
-    desc: "...",
-    tech: ["Next.js", "Supabase", "Recharts", "Vercel"],
-    live: "https://spendsmart-taupe.vercel.app",
-    github: "https://github.com/rishicodes-7/spendsmart",
-    image: "/spendsmart.png",
-    badge: "LIVE",
-    category: "Fullstack",
-  },
-  {
-    title: "Nexus Chat",
-    desc: "...",
-    tech: ["Next.js", "Supabase Realtime", "Supabase Auth", "PostgreSQL", "Vercel"],
-    live: "https://nexus-chat-mocha.vercel.app/",
-    github: "https://github.com/rishicodes-7/nexus-chat",
-    image: "/nexus.png",
-    badge: "LIVE",
-    category: "Fullstack",
-  },
-  {
-    title: "LinkDrop",
-    desc: "...",
-    tech: ["Next.js", "Supabase", "PostgreSQL", "Vercel"],
-    live: "https://linkdrop-kohl.vercel.app/",
-    github: "https://github.com/rishicodes-7/linkdrop",
-    image: "/linkdrop.png",
-    badge: "LIVE",
-    category: "Fullstack",
-  },
-];
-
-// ── PROJECTS COMPONENT ──────────────────────────────────────────
-export default function Projects() {
-  const [filter, setFilter] = useState("All");
-  const [search, setSearch] = useState(""); // new search state
-  const [fade, setFade] = useState(true); // for animation
-
-  // Filter + search
-  const filteredProjects = PROJECTS.filter((p) => {
-    const matchesCategory = filter === "All" ? true : p.category === filter;
-    const matchesSearch =
-      p.title.toLowerCase().includes(search.toLowerCase()) ||
-      p.tech.some((t) => t.toLowerCase().includes(search.toLowerCase()));
-    return matchesCategory && matchesSearch;
-  });
-
-  // Fade animation on filter or search change
-  useEffect(() => {
-    setFade(false);
-    const timer = setTimeout(() => setFade(true), 50);
-    return () => clearTimeout(timer);
-  }, [filter, search]);
-
-  return (
-    <section id="projects" style={{ padding: "80px 20px", maxWidth: "1100px", margin: "0 auto" }}>
-      <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.5rem", marginBottom: "20px" }}>
-        My Projects
-      </h2>
-
-      {/* Filter Buttons */}
-      <div style={{ display: "flex", gap: "12px", marginBottom: "12px" }}>
-        {["All", "AI", "Fullstack"].map((f) => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            style={{
-              padding: "6px 14px",
-              border: "1px solid var(--border)",
-              background: filter === f ? "#9333ea" : "transparent",
-              color: filter === f ? "#fff" : "var(--text-secondary)",
-              cursor: "pointer",
-              fontSize: "0.7rem",
-              fontFamily: "'Space Mono', monospace",
-              letterSpacing: "0.08em",
-              boxShadow: filter === f ? "0 0 10px rgba(147,51,234,0.5)" : "none",
-              transition: "all 0.3s ease",
-            }}
-          >
-            {f} ({f === "All" ? PROJECTS.length : PROJECTS.filter(p => p.category === f).length})
-          </button>
-        ))}
-      </div>
-
-      {/* Search Bar */}
-      <input
-        type="text"
-        placeholder="Search projects by name or tech..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={{
-          padding: "8px 12px",
-          width: "100%",
-          maxWidth: "400px",
-          marginBottom: "24px",
-          border: "1px solid var(--border)",
-          borderRadius: "4px",
-          fontSize: "0.8rem",
-          fontFamily: "'Space Mono', monospace",
-        }}
-      />
-
-      {/* Projects Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
-        {filteredProjects.map((p, i) => (
-          <div
-            key={i}
-            style={{
-              border: "1px solid var(--border)",
-              borderRadius: "6px",
-              overflow: "hidden",
-              background: "#fff",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-              opacity: fade ? 1 : 0,
-              transform: fade ? "translateY(0)" : "translateY(20px)",
-              transition: "opacity 0.5s ease, transform 0.5s ease",
-            }}
-          >
-            <img src={p.image} alt={p.title} style={{ width: "100%", height: "160px", objectFit: "cover" }} />
-            <div style={{ padding: "16px" }}>
-              <h3 style={{ marginBottom: "8px", fontFamily: "'Bebas Neue', sans-serif" }}>{p.title}</h3>
-              <p style={{ fontSize: "0.9rem", color: "var(--text-muted)", marginBottom: "12px" }}>{p.desc}</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "12px" }}>
-  {p.tech.map((t) => (
-    <span
-      key={t}
-      style={{
-        fontSize: "0.7rem",
-        padding: "2px 6px",
-        border: "1px solid var(--border)",
-        borderRadius: "2px",
-        transition: "all 0.3s ease",
-        cursor: "default",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.background = "#9333ea";
-        e.currentTarget.style.color = "#fff";
-        e.currentTarget.style.transform = "scale(1.1)";
-        e.currentTarget.style.boxShadow = "0 0 8px rgba(147,51,234,0.5)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = "transparent";
-        e.currentTarget.style.color = "var(--text-secondary)";
-        e.currentTarget.style.transform = "scale(1)";
-        e.currentTarget.style.boxShadow = "none";
-      }}
-    >
-      {t}
-    </span>
-  ))}
-</div>
-              <div style={{ display: "flex", gap: "12px" }}>
-                <a href={p.live} target="_blank" style={{ fontSize: "0.8rem", color: "#9333ea" }}>Live</a>
-                <a href={p.github} target="_blank" style={{ fontSize: "0.8rem", color: "#9333ea" }}>GitHub</a>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <p style={{ marginTop: "32px", color: "var(--text-secondary)", fontSize: "0.8rem" }}>
-        More projects coming soon — building in public 🚀
-      </p>
-    </section>
-  );
-}
-
 
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -266,14 +59,73 @@ function useTypewriter(words, speed = 80, pause = 1800) {
       timeout = setTimeout(() => setDeleting(true), pause);
     else if (deleting && charIdx > 0)
       timeout = setTimeout(() => setCharIdx(c => c - 1), speed / 2);
-    else if (deleting && charIdx === 0) {
+    else if (deleting && charIdx === 0)
       timeout = setTimeout(() => { setDeleting(false); setWordIdx(i => (i + 1) % words.length); }, 50);
-    }
     setDisplay(current.slice(0, charIdx));
     return () => clearTimeout(timeout);
   }, [charIdx, deleting, wordIdx, words, speed, pause]);
   return display;
 }
+
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const SKILLS = [
+  { name: "JavaScript", level: 85 },
+  { name: "React.js", level: 82 },
+  { name: "Next.js", level: 80 },
+  { name: "Tailwind CSS", level: 85 },
+  { name: "Supabase", level: 75 },
+  { name: "PostgreSQL", level: 72 },
+];
+
+const NAV_LINKS = ["about", "skills", "projects", "contact"];
+
+const PROJECTS = [
+  {
+    title: "AI Resume Analyzer",
+    desc: "Upload a PDF resume or paste text, get an AI-powered match score, skill gaps, keyword analysis, and a rewritten professional summary powered by LLaMA 3.3.",
+    tech: ["Next.js", "Groq API", "LLaMA 3.3", "pdf2json", "Vercel"],
+    live: "https://my-resume-ai-omega.vercel.app/",
+    github: "https://github.com/rishicodes-7/my-resume-ai",
+    image: "/resume-ai.png",
+    badge: "LIVE",
+  },
+  {
+    title: "SnapLink",
+    desc: "URL shortener with click analytics. Paste any long URL, get a short link instantly, generate a QR code, and track clicks over time with a bar chart dashboard.",
+    tech: ["Next.js", "Supabase", "Recharts", "Vercel"],
+    live: "https://snaplink-wine.vercel.app/",
+    github: "https://github.com/rishicodes-7/snaplink",
+    image: "/snaplink.png",
+    badge: "LIVE",
+  },
+  {
+    title: "SpendSmart",
+    desc: "Full stack expense tracker with real-time charts. Add income and expenses, visualize spending by category with a pie chart, and export transactions as CSV.",
+    tech: ["Next.js", "Supabase", "Recharts", "Vercel"],
+    live: "https://spendsmart-taupe.vercel.app",
+    github: "https://github.com/rishicodes-7/spendsmart",
+    image: "/spendsmart.png",
+    badge: "LIVE",
+  },
+  {
+    title: "Nexus Chat",
+    desc: "Real-time multi-room chat app where messages appear instantly across all connected users. Features live online presence, 4 rooms, and delete your own messages.",
+    tech: ["Next.js", "Supabase Realtime", "Supabase Auth", "PostgreSQL", "Vercel"],
+    live: "https://nexus-chat-mocha.vercel.app/",
+    github: "https://github.com/rishicodes-7/nexus-chat",
+    image: "/nexus.png",
+    badge: "LIVE",
+  },
+  {
+    title: "LinkDrop",
+    desc: "Linktree-style personal link page builder. Create your page with a custom username, add unlimited links, track clicks per link, and share one URL with the world.",
+    tech: ["Next.js", "Supabase", "PostgreSQL", "Vercel"],
+    live: "https://linkdrop-kohl.vercel.app/",
+    github: "https://github.com/rishicodes-7/linkdrop",
+    image: "/linkdrop.png",
+    badge: "LIVE",
+  },
+];
 
 // ── Navbar ────────────────────────────────────────────────────────────────────
 function Navbar({ scrolled }) {
@@ -430,7 +282,6 @@ function ParticlesCanvas() {
 }
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
-const projectCount = PROJECTS.length;
 function Hero() {
   const width = useWindowSize();
   const isMobile = width <= 768;
@@ -501,17 +352,8 @@ function Hero() {
           maxWidth: isMobile ? "100%" : "520px",
           marginBottom: "32px", fontFamily: "'DM Sans', sans-serif",
         }}>
-          <p style={{
-  fontSize: isMobile ? "0.9rem" : "1rem",
-  color: "var(--text-muted)",
-  lineHeight: 1.8,
-  maxWidth: isMobile ? "100%" : "520px",
-  marginBottom: "32px",
-  fontFamily: "'DM Sans', sans-serif",
-}}>
-  Built {projectCount}+ real-world projects using Next.js, Supabase, and AI APIs.
-  I turn ideas into live products — fast.
-</p>
+          Built {PROJECTS.length}+ real-world projects using Next.js, Supabase, and AI APIs.
+          I turn ideas into live products — fast.
         </p>
 
         <div style={{
@@ -527,7 +369,7 @@ function Hero() {
             borderRadius: "2px", width: isMobile ? "100%" : "auto",
             boxShadow: "0 0 30px rgba(147,51,234,0.4)", transition: "all 0.3s ease",
           }}>Get in Touch</button>
-          <a href="https://linkedin.com/in/rishicodes" target="_blank" rel="noreferrer" style={{
+          <a href="https://www.linkedin.com/in/rishicodes-7" target="_blank" rel="noreferrer" style={{
             padding: "13px 28px",
             background: "transparent",
             border: "1px solid var(--border)", color: "var(--text-secondary)",
@@ -551,158 +393,61 @@ function About() {
   const isMobile = width <= 768;
   const [ref, inView] = useInView();
 
-  // 🔥 Auto-count LIVE projects
-  const liveProjectsCount = PROJECTS.filter(p => p.badge === "LIVE").length;
-
+  const liveCount = PROJECTS.filter(p => p.badge === "LIVE").length;
   const stats = [
-    [liveProjectsCount.toString(), "Live Projects"],
+    [liveCount.toString(), "Live Projects"],
     ["10+", "Technologies"],
-    ["100%", "Self Taught"]
+    ["100%", "Self Taught"],
   ];
 
   return (
-    <section
-      id="about"
-      ref={ref}
-      style={{
-        padding: isMobile ? "80px 20px" : "120px 48px",
-        boxSizing: "border-box",
-        width: "100%"
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "1100px",
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "1fr 1.5fr",
-          gap: isMobile ? "48px" : "80px",
-          alignItems: "center",
-          opacity: inView ? 1 : 0,
-          transform: inView ? "translateY(0)" : "translateY(40px)",
-          transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)"
-        }}
-      >
-        {/* ── Image Section ── */}
-        <div
-          style={{
-            position: "relative",
-            width: isMobile ? "200px" : "100%",
-            margin: isMobile ? "0 auto" : "0"
-          }}
-        >
-          <div
-            style={{
-              width: "100%",
-              paddingBottom: "100%",
-              borderRadius: "4px",
-              position: "relative",
-              overflow: "hidden"
-            }}
-          >
+    <section id="about" ref={ref} style={{ padding: isMobile ? "80px 20px" : "120px 48px", boxSizing: "border-box", width: "100%" }}>
+      <div style={{
+        maxWidth: "1100px", margin: "0 auto",
+        display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1.5fr",
+        gap: isMobile ? "48px" : "80px", alignItems: "center",
+        opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)",
+        transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
+      }}>
+        {/* Image */}
+        <div style={{ position: "relative", width: isMobile ? "200px" : "100%", margin: isMobile ? "0 auto" : "0" }}>
+          <div style={{ width: "100%", paddingBottom: "100%", borderRadius: "4px", position: "relative", overflow: "hidden" }}>
             {[
               { top: -1, left: -1, borderTop: "2px solid #9333ea", borderLeft: "2px solid #9333ea" },
               { top: -1, right: -1, borderTop: "2px solid #9333ea", borderRight: "2px solid #9333ea" },
               { bottom: -1, left: -1, borderBottom: "2px solid #9333ea", borderLeft: "2px solid #9333ea" },
-              { bottom: -1, right: -1, borderBottom: "2px solid #9333ea", borderRight: "2px solid #9333ea" }
+              { bottom: -1, right: -1, borderBottom: "2px solid #9333ea", borderRight: "2px solid #9333ea" },
             ].map((s, i) => (
               <div key={i} style={{ position: "absolute", width: "18px", height: "18px", zIndex: 2, ...s }} />
             ))}
-
-            <img
-              src="/profile.png"
-              alt="Rishi Codes"
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "center top"
-              }}
-            />
-
-            <div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: "40%",
-                background: "linear-gradient(to top, rgba(147,51,234,0.25), transparent)",
-                zIndex: 1
-              }}
-            />
+            <img src="/profile.png" alt="Rishi Codes" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "40%", background: "linear-gradient(to top, rgba(147,51,234,0.25), transparent)", zIndex: 1 }} />
           </div>
-
-          <div
-            style={{
-              position: "absolute",
-              bottom: "-14px",
-              right: "-10px",
-              background: "#9333ea",
-              padding: "8px 14px",
-              fontFamily: "'Space Mono', monospace",
-              fontSize: "0.62rem",
-              color: "#fff",
-              letterSpacing: "0.1em",
-              borderRadius: "2px"
-            }}
-          >
-            OPEN TO INTERNSHIPS
-          </div>
+          <div style={{
+            position: "absolute", bottom: "-14px", right: "-10px",
+            background: "#9333ea", padding: "8px 14px",
+            fontFamily: "'Space Mono', monospace", fontSize: "0.62rem",
+            color: "#fff", letterSpacing: "0.1em", borderRadius: "2px",
+          }}>OPEN TO INTERNSHIPS</div>
         </div>
 
-        {/* ── Text Section ── */}
+        {/* Text */}
         <div style={{ paddingTop: isMobile ? "20px" : "0" }}>
-          <p style={{
-            fontFamily: "'Space Mono', monospace",
-            fontSize: "0.72rem",
-            letterSpacing: "0.25em",
-            color: "#9333ea",
-            textTransform: "uppercase",
-            marginBottom: "12px"
-          }}>
-            // about me
-          </p>
-
-          <h2 style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: isMobile ? "2.2rem" : "clamp(2rem, 4vw, 3.5rem)",
-            color: "var(--text-primary)",
-            lineHeight: 1.1,
-            marginBottom: "20px"
-          }}>
+          <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.25em", color: "#9333ea", textTransform: "uppercase", marginBottom: "12px" }}>// about me</p>
+          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: isMobile ? "2.2rem" : "clamp(2rem, 4vw, 3.5rem)", color: "var(--text-primary)", lineHeight: 1.1, marginBottom: "20px" }}>
             Crafting Digital <span style={{ color: "#9333ea" }}>Experiences</span>
           </h2>
-
-          <p style={{ color: "var(--text-muted)", lineHeight: 1.9, fontSize: "0.92rem" }}>
+          <p style={{ color: "var(--text-muted)", lineHeight: 1.9, fontSize: "0.92rem", marginBottom: "12px" }}>
             I'm a self-taught Full Stack Developer and Class 12 PCM student. I build real, deployed web applications using Next.js, Supabase, and AI APIs.
           </p>
-
           <p style={{ color: "var(--text-muted)", lineHeight: 1.9, fontSize: "0.92rem" }}>
             Currently looking for a full stack internship where I can contribute real work and grow fast.
           </p>
-
-          {/* ── Stats ── */}
           <div style={{ marginTop: "32px", display: "flex", gap: "40px", flexWrap: "wrap" }}>
             {stats.map(([n, l]) => (
               <div key={l}>
-                <div style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "1.8rem",
-                  fontWeight: 700,
-                  color: "#9333ea"
-                }}>
-                  {n}
-                </div>
-                <div style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: "0.75rem",
-                  color: "var(--text-secondary)"
-                }}>
-                  {l}
-                </div>
+                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "1.8rem", fontWeight: 700, color: "#9333ea" }}>{n}</div>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.75rem", color: "var(--text-secondary)" }}>{l}</div>
               </div>
             ))}
           </div>
@@ -713,6 +458,33 @@ function About() {
 }
 
 // ── Skills ────────────────────────────────────────────────────────────────────
+function SkillCard({ skill, delay, inView }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} style={{
+      padding: "22px",
+      background: hovered ? "rgba(147,51,234,0.06)" : "var(--card-bg)",
+      border: `1px solid ${hovered ? "rgba(147,51,234,0.4)" : "var(--border)"}`,
+      borderRadius: "4px", transition: "all 0.3s ease",
+      opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(30px)",
+      transitionDelay: `${delay}ms`, transitionDuration: "0.7s",
+      width: "100%", boxSizing: "border-box",
+    }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.85rem", color: "var(--text-primary)" }}>{skill.name}</span>
+        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.75rem", color: "#9333ea" }}>{skill.level}%</span>
+      </div>
+      <div style={{ height: "2px", background: "var(--border)", borderRadius: "2px", overflow: "hidden" }}>
+        <div style={{
+          height: "100%", width: inView ? `${skill.level}%` : "0%",
+          background: "linear-gradient(90deg, #7c3aed, #c084fc)",
+          transition: `width 1.2s cubic-bezier(0.16,1,0.3,1) ${delay + 300}ms`, borderRadius: "2px",
+        }} />
+      </div>
+    </div>
+  );
+}
+
 function Skills() {
   const width = useWindowSize();
   const isMobile = width <= 768;
@@ -727,11 +499,9 @@ function Skills() {
             My Tech <span style={{ color: "#9333ea" }}>Arsenal</span>
           </h2>
         </div>
-
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(300px, 1fr))", gap: "16px" }}>
           {SKILLS.map((skill, i) => <SkillCard key={skill.name} skill={skill} delay={i * 100} inView={inView} />)}
         </div>
-
         <div style={{ marginTop: "40px", display: "flex", flexWrap: "wrap", gap: "8px", opacity: inView ? 1 : 0, transition: "opacity 0.8s ease 0.5s" }}>
           {["REST APIs", "Git", "Vercel", "Recharts", "Supabase Auth", "Row Level Security", "App Router", "Responsive Design"].map(tag => (
             <span key={tag} style={{
@@ -749,68 +519,7 @@ function Skills() {
   );
 }
 
-function SkillCard({ skill, delay, inView }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} style={{
-      padding: "22px",
-      background: hovered ? "rgba(147,51,234,0.06)" : "var(--card-bg)",
-      border: `1px solid ${hovered ? "rgba(147,51,234,0.4)" : "var(--border)"}`,
-      borderRadius: "4px", transition: "all 0.3s ease",
-      opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(30px)",
-      transitionDelay: `${delay}ms`, transitionDuration: "0.7s", width: "100%", boxSizing: "border-box",
-    }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.85rem", color: "var(--text-primary)" }}>{skill.name}</span>
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.75rem", color: "#9333ea" }}>{skill.level}%</span>
-      </div>
-      <div style={{ height: "2px", background: "var(--border)", borderRadius: "2px", overflow: "hidden" }}>
-        <div style={{
-          height: "100%", width: inView ? `${skill.level}%` : "0%",
-          background: "linear-gradient(90deg, #7c3aed, #c084fc)",
-          transition: `width 1.2s cubic-bezier(0.16,1,0.3,1) ${delay + 300}ms`, borderRadius: "2px",
-        }} />
-      </div>
-    </div>
-  );
-}
-
 // ── Projects ──────────────────────────────────────────────────────────────────
-function Projects() {
-  const width = useWindowSize();
-  const isMobile = width <= 768;
-  const [ref, inView] = useInView();
-
-  return (
-    <section id="projects" ref={ref} style={{ padding: isMobile ? "80px 20px" : "120px 48px", boxSizing: "border-box", width: "100%" }}>
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)" }}>
-          <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.25em", color: "#9333ea", textTransform: "uppercase", marginBottom: "12px" }}>// projects</p>
-          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: isMobile ? "2.2rem" : "clamp(2rem, 4vw, 3.5rem)", color: "var(--text-primary)", lineHeight: 1.1, marginBottom: "8px" }}>
-            Things I've <span style={{ color: "#9333ea" }}>Built</span>
-          </h2>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", color: "var(--text-secondary)", marginBottom: "40px" }}>
-            More projects coming soon — building in public 🚀
-          </p>
-        </div>
-
-        {/* Project cards grid */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : PROJECTS.length === 1 ? "minmax(300px, 480px)" : "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "16px",
-        }}>
-          {PROJECTS.map((p, i) => (
-            <ProjectCard key={p.title} project={p} delay={i * 120} inView={inView} />
-          ))}
-
-
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function ProjectCard({ project, delay, inView }) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -823,22 +532,13 @@ function ProjectCard({ project, delay, inView }) {
       display: "flex", flexDirection: "column",
       width: "100%", boxSizing: "border-box", overflow: "hidden",
     }}>
-      {/* Project screenshot */}
       {project.image && (
-        <div style={{
-          width: "100%", height: "190px", overflow: "hidden",
-          borderBottom: `1px solid ${hovered ? "rgba(147,51,234,0.4)" : "var(--border)"}`,
-          position: "relative",
-        }}>
+        <div style={{ width: "100%", height: "190px", overflow: "hidden", borderBottom: `1px solid ${hovered ? "rgba(147,51,234,0.4)" : "var(--border)"}`, position: "relative" }}>
           <img src={project.image} alt={project.title} style={{
             width: "100%", height: "100%", objectFit: "cover", objectPosition: "top",
-            transition: "transform 0.5s ease",
-            transform: hovered ? "scale(1.04)" : "scale(1)",
+            transition: "transform 0.5s ease", transform: hovered ? "scale(1.04)" : "scale(1)",
           }} />
-          <div style={{
-            position: "absolute", inset: 0,
-            background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.55))",
-          }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.55))" }} />
           {project.badge && (
             <span style={{
               position: "absolute", top: 10, right: 10,
@@ -849,8 +549,6 @@ function ProjectCard({ project, delay, inView }) {
           )}
         </div>
       )}
-
-      {/* Card body */}
       <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px", flex: 1 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
           <h3 style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.92rem", color: "var(--text-primary)" }}>{project.title}</h3>
@@ -880,33 +578,34 @@ function ProjectCard({ project, delay, inView }) {
   );
 }
 
-// ── Coming Soon placeholder ───────────────────────────────────────────────────
-function ComingSoonCard({ delay, inView }) {
-  const [hovered, setHovered] = useState(false);
+function Projects() {
+  const width = useWindowSize();
+  const isMobile = width <= 768;
+  const [ref, inView] = useInView();
+
   return (
-    <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} style={{
-      background: hovered ? "rgba(147,51,234,0.04)" : "transparent",
-      border: `1px dashed ${hovered ? "rgba(147,51,234,0.4)" : "rgba(255,255,255,0.08)"}`,
-      borderRadius: "4px", transition: "all 0.3s ease",
-      opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(30px)",
-      transitionDelay: `${delay}ms`, transitionDuration: "0.7s",
-      display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-      minHeight: "240px", width: "100%", boxSizing: "border-box", padding: "32px",
-      cursor: "default",
-    }}>
-      <div style={{
-        width: "40px", height: "40px", borderRadius: "50%",
-        border: "1px dashed rgba(147,51,234,0.3)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        marginBottom: "16px", fontSize: "1.2rem",
-        color: "rgba(147,51,234,0.4)",
-      }}>+</div>
-      <p style={{
-        fontFamily: "'Space Mono', monospace", fontSize: "0.7rem",
-        color: "rgba(255,255,255,0.15)", letterSpacing: "0.15em",
-        textTransform: "uppercase", textAlign: "center",
-      }}>Next Project<br />Coming Soon</p>
-    </div>
+    <section id="projects" ref={ref} style={{ padding: isMobile ? "80px 20px" : "120px 48px", boxSizing: "border-box", width: "100%" }}>
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <div style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(40px)", transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)" }}>
+          <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.25em", color: "#9333ea", textTransform: "uppercase", marginBottom: "12px" }}>// projects</p>
+          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: isMobile ? "2.2rem" : "clamp(2rem, 4vw, 3.5rem)", color: "var(--text-primary)", lineHeight: 1.1, marginBottom: "8px" }}>
+            Things I've <span style={{ color: "#9333ea" }}>Built</span>
+          </h2>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", color: "var(--text-secondary)", marginBottom: "40px" }}>
+            All projects are live, open source, and built from scratch 🚀
+          </p>
+        </div>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "16px",
+        }}>
+          {PROJECTS.map((p, i) => (
+            <ProjectCard key={p.title} project={p} delay={i * 120} inView={inView} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -934,7 +633,6 @@ function Contact() {
         <p style={{ color: "var(--text-secondary)", fontSize: isMobile ? "0.88rem" : "1rem", lineHeight: 1.8, marginBottom: "36px", fontFamily: "'DM Sans', sans-serif" }}>
           Have a project in mind or just want to say hi? My inbox is always open. I'll get back to you as soon as possible.
         </p>
-
         <a href="mailto:rishicodes7@gmail.com" style={{
           display: isMobile ? "block" : "inline-block",
           padding: "13px 36px",
@@ -945,14 +643,13 @@ function Contact() {
           borderRadius: "2px", boxShadow: "0 0 40px rgba(147,51,234,0.4)",
           boxSizing: "border-box", transition: "all 0.3s ease",
         }}>Say Hello →</a>
-
         <div style={{ marginTop: "36px", display: "flex", justifyContent: "center", gap: isMobile ? "20px" : "32px", flexWrap: "wrap" }}>
           {[
             { label: "GitHub", href: "https://github.com/rishicodes-7" },
-            { label: "LinkedIn", href: "https://linkedin.com/in/rishicodes" },
+            { label: "LinkedIn", href: "https://www.linkedin.com/in/rishicodes-7" },
             { label: "Email", href: "mailto:rishicodes7@gmail.com" },
           ].map(({ label, href }) => (
-            <a key={label} href={href} style={{
+            <a key={label} href={href} target="_blank" rel="noreferrer" style={{
               fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", color: "var(--text-secondary)",
               textDecoration: "none", textTransform: "uppercase", letterSpacing: "0.1em", transition: "color 0.2s",
             }}
@@ -1002,14 +699,8 @@ export default function App() {
     <ThemeProvider>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap');
-
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        html {
-          scroll-behavior: smooth;
-          overflow-x: hidden;
-          max-width: 100%;
-        }
+        html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
 
         :root {
           --bg-primary: #060606; --bg-secondary: #111;
@@ -1017,7 +708,6 @@ export default function App() {
           --accent: #9333ea; --border: rgba(255,255,255,0.1);
           --nav-bg: rgba(6,6,6,0.97); --card-bg: rgba(255,255,255,0.03);
         }
-
         [data-theme="light"] {
           --bg-primary: #ffffff; --bg-secondary: #f8fafc;
           --text-primary: #1a1a1a; --text-secondary: #4b5563; --text-muted: #6b7280;
@@ -1026,26 +716,18 @@ export default function App() {
         }
 
         body {
-          background: var(--bg-primary);
-          color: var(--text-primary);
-          min-height: 100vh;
-          font-family: 'DM Sans', sans-serif;
-          overflow-x: hidden;
-          max-width: 100vw;
-          position: relative;
+          background: var(--bg-primary); color: var(--text-primary);
+          min-height: 100vh; font-family: 'DM Sans', sans-serif;
+          overflow-x: hidden; max-width: 100vw; position: relative;
           transition: background 0.3s ease, color 0.3s ease;
         }
-
         body::before {
           content: ''; position: fixed; inset: 0;
           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
           pointer-events: none; z-index: 9999; opacity: 0.5;
         }
-
         section + section { border-top: 1px solid var(--border); }
-
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #060606; }
         ::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 2px; }
