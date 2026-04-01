@@ -87,6 +87,15 @@ const PROJECTS = [
   badge: "LIVE",
 },
 
+{
+  title: "LinkDrop",
+  desc: "A Linktree-style link page builder. Create your own page with a custom username, add links, and share one URL with the world. Includes click tracking per link.",
+  tech: ["Next.js", "Supabase", "PostgreSQL", "Vercel"],
+  live: "https://linkdrop-kohl.vercel.app/",
+  github: "https://github.com/rishicodes-7/linkdrop",
+  image: "/linkdrop.png",
+  badge: "LIVE",
+},
   // ── PROJECT 4 — uncomment and fill in when ready ──
   // {
   //   title: "Your Next Project",
