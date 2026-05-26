@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/_discord", "destination": "/_discord" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
